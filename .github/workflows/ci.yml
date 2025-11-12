@@ -27,16 +27,12 @@ jobs:                   # Qué tareas ejecuta
         working-directory: ./server
         run: npm run build
 
-      - name: Start server
-        working-directory: ./server
-        run: npm run start
-
       - name: Install client dependencies
         working-directory: ./client
         run: npm install
 
       - name: Start server
-        working-directory: ./server
+        working-directory: ./client
         run: npm run build
 
 
