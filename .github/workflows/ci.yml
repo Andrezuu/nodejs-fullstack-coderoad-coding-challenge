@@ -23,6 +23,10 @@ jobs:                   # Qué tareas ejecuta
         working-directory: ./server
         run: npm install
 
+      - name: Build server
+        working-directory: ./server
+        run: npm run build
+
       - name: Start server
         working-directory: ./server
         run: npm run start
