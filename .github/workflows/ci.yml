@@ -1,18 +1,18 @@
 name: CI Pipeline
 
-on:                     # Cuándo se ejecuta
+on:                    
   push:
-    branches: [ main ]  # Solo cuando hay un push en main
+    branches: [ main ]  
   pull_request:
     branches: [ main ]
 
-jobs:                   # Qué tareas ejecuta
+jobs:                 
   build:
-    runs-on: ubuntu-latest  # Máquina virtual de GitHub
+    runs-on: ubuntu-latest  
 
-    steps:               # Pasos a ejecutar
+    steps:               
       - name: Checkout code
-        uses: actions/checkout@v4   # Descarga el código del repo
+        uses: actions/checkout@v4   
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -22,6 +22,17 @@ jobs:                   # Qué tareas ejecuta
       - name: Install server dependencies
         working-directory: ./server
         run: npm install
+
+      - name: Copy backend files via SCP
+        uses: appleboy/scp-action@v1
+        working-directory: ./server
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          source: "./"
+          target: "/var/www/html"
+        
 
       - name: Build server
         working-directory: ./server
@@ -34,6 +45,16 @@ jobs:                   # Qué tareas ejecuta
       - name: Start server
         working-directory: ./client
         run: npm run build
+
+      - name: Copy frontend files via SCP
+        uses: appleboy/scp-action@v1
+        working-directory: ./client
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          source: "./"
+          target: "/var/www/html"
 
 
 
