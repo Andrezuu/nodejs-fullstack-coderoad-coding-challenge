@@ -21,8 +21,13 @@ jobs:
           node-version: '20'
 
       - name: Install server dependencies
-        working_directory: "./server"
+        working_directory: ./server
         run: npm install
+
+        
+      - name: Build server
+        working-directory: ./server
+        run: npm run build
 
       - name: Copy backend files via SCP
         uses: appleboy/scp-action@v1
@@ -32,11 +37,6 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           source: ".server/*"
           target: "/var/www/html"
-        
-
-      - name: Build server
-        working-directory: ./server
-        run: npm run build
 
       - name: Install client dependencies
         working-directory: ./client
