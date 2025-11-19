@@ -35,7 +35,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
-          source: ".server/*"
+          source: ".server/"
           target: "/var/www/html"
 
       - name: Install client dependencies
@@ -52,7 +52,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
-          source: ".client/*"
+          source: ".client/"
           target: "/var/www/html"
 
 
