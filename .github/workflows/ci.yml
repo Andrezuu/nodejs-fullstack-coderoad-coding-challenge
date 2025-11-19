@@ -24,8 +24,8 @@ jobs:
         run: npm install
 
       - name: Copy backend files via SCP
-        uses: appleboy/scp-action@v1
         working-directory: ./server
+        uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
@@ -47,8 +47,8 @@ jobs:
         run: npm run build
 
       - name: Copy frontend files via SCP
-        uses: appleboy/scp-action@v1
         working-directory: ./client
+        uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
