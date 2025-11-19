@@ -55,7 +55,7 @@ jobs:
           source: "./client/dist/*"
           target: "/var/www/html"
       - name: Start server
-        workin-directory: ./server/dist
+        working-directory: ./server/dist
         run: npm start
 
 
